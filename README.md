@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# GDE Training Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend para una plataforma de gestión de rutinas de entrenamiento. Permite a entrenadores/admins crear y asignar rutinas a sus atletas, y a los atletas consultar sus rutinas del día.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Funcionalidades
 
-## React Compiler
+### Panel de Administrador
+- **Gestión de usuarios** — crear, editar y eliminar atletas. Configurar rol, estado (activo/inactivo) y datos biométricos (peso, talla).
+- **Gestión de rutinas** — crear rutinas con desglose por día de la semana: tipo de actividad, descripción, duración, notas y link a video.
+- **Asignación** — asignar o desasignar rutinas a uno o varios atletas desde un modal.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Vista del Atleta
+- Ver todas las rutinas asignadas.
+- Consultar el detalle de cada día: actividad, descripción, duración, notas y video.
+- Identificar días de descanso vs. días de entrenamiento.
 
-## Expanding the ESLint configuration
+### Autenticación
+- Login con email y contraseña.
+- JWT almacenado en `localStorage`, inyectado automáticamente en cada request.
+- Rutas protegidas por rol (`admin` / `athlete`).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Stack tecnológico
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Categoría | Tecnología |
+|---|---|
+| UI | React 19 + TypeScript |
+| Build | Vite |
+| Routing | React Router 7 |
+| Server state | TanStack React Query 5 |
+| Estilos | Tailwind CSS 4 |
+| Formularios | React Hook Form + Zod |
+| HTTP | Axios |
+| Iconos | Lucide React |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Estructura del proyecto
+
+```
+src/
+├── api/            # Clientes HTTP (auth, users, routines)
+├── components/     # Layout y ProtectedRoute
+├── context/        # AuthContext (estado global de sesión)
+├── pages/
+│   ├── admin/      # Users, UserForm, Routines, RoutineForm
+│   └── athlete/    # MyRoutines
+└── types/          # Tipos TypeScript globales
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Requisitos previos
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 18+
+- Backend corriendo en `http://localhost:5247` (ver sección de API)
+
+## Instalación y uso
+
+```bash
+# Instalar dependencias
+npm install
+
+# Iniciar en modo desarrollo
+npm run dev
+
+# Build de producción
+npm run build
 ```
+
+## Variables de entorno
+
+El proxy de desarrollo redirige `/api` a `http://localhost:5247`. Si el backend corre en otro puerto, editá `vite.config.ts`:
+
+```ts
+proxy: {
+  '/api': 'http://localhost:PUERTO'
+}
+```
+
+---
+
+## API esperada
+
+El frontend consume los siguientes endpoints REST:
+
+| Método | Endpoint | Descripción |
+|---|---|---|
+| POST | `/api/auth/login` | Autenticación |
+| GET | `/api/auth/me` | Usuario actual |
+| GET/POST/PUT/DELETE | `/api/users` | CRUD de usuarios |
+| GET/POST/PUT/DELETE | `/api/routines` | CRUD de rutinas |
+| GET | `/api/routines/user/{userId}` | Rutinas de un atleta |
+| POST | `/api/routines/{id}/assign` | Asignar rutina |
+| DELETE | `/api/routines/{id}/unassign/{userId}` | Desasignar rutina |
