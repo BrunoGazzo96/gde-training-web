@@ -63,8 +63,8 @@ export default function Routines() {
 
       {/* Confirm delete */}
       {confirmId !== null && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-80 shadow-lg">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-xl p-6 w-full max-w-sm shadow-lg">
             <h3 className="font-semibold text-gray-900 mb-2">Eliminar rutina</h3>
             <p className="text-sm text-gray-600 mb-4">¿Estás seguro? Esta acción no se puede deshacer.</p>
             <div className="flex gap-2 justify-end">
@@ -85,8 +85,8 @@ export default function Routines() {
 
       {/* Assign modal */}
       {assignRoutineId !== null && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-96 shadow-lg">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-xl p-6 w-full max-w-sm shadow-lg">
             <h3 className="font-semibold text-gray-900 mb-1">Asignar rutina</h3>
             <p className="text-sm text-gray-500 mb-4">Seleccioná los usuarios a asignar</p>
             <div className="max-h-60 overflow-y-auto space-y-2 mb-4">

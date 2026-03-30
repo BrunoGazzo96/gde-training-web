@@ -37,6 +37,7 @@ export default function Users() {
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
@@ -90,12 +91,13 @@ export default function Users() {
         {users.length === 0 && (
           <div className="text-center py-12 text-gray-400">No hay usuarios registrados.</div>
         )}
+        </div>
       </div>
 
       {/* Confirm delete modal */}
       {confirmId !== null && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-80 shadow-lg">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-xl p-6 w-full max-w-sm shadow-lg">
             <h3 className="font-semibold text-gray-900 mb-2">Eliminar usuario</h3>
             <p className="text-sm text-gray-600 mb-4">¿Estás seguro? Esta acción no se puede deshacer.</p>
             <div className="flex gap-2 justify-end">

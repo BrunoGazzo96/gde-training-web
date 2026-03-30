@@ -149,7 +149,7 @@ export default function RoutineForm() {
                   )}
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-medium text-gray-600 mb-1">Día de la semana</label>
                     <select {...register(`days.${index}.day`, { valueAsNumber: true })} className={inputClass}>
@@ -171,7 +171,7 @@ export default function RoutineForm() {
 
                 {!isRest && (
                   <>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-600 mb-1">Tipo de actividad</label>
                         <input {...register(`days.${index}.activityType`)} className={inputClass} placeholder="Ej: Pesas, Cardio" />
@@ -185,7 +185,7 @@ export default function RoutineForm() {
                       <label className="block text-xs font-medium text-gray-600 mb-1">Descripción</label>
                       <textarea {...register(`days.${index}.description`)} rows={2} className={inputClass} placeholder="Descripción de los ejercicios..." />
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label className="block text-xs font-medium text-gray-600 mb-1">Notas</label>
                         <input {...register(`days.${index}.notes`)} className={inputClass} placeholder="Notas adicionales" />

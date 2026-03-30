@@ -62,7 +62,7 @@ export default function UserForm() {
         <h2 className="text-xl font-semibold text-gray-900 mb-6">Editar usuario</h2>
 
         <form onSubmit={handleSubmit((d) => updateMutation.mutate(d))} className="space-y-4 bg-white border border-gray-200 rounded-xl p-6">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>Rol</label>
               <select {...register('role')} className={inputClass}>
@@ -84,7 +84,7 @@ export default function UserForm() {
             <input type="password" {...register('password')} className={inputClass} placeholder="Dejar vacío para no cambiar" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className={labelClass}>Peso (kg)</label>
               <input type="number" step="0.1" {...register('weight', { valueAsNumber: true })} className={inputClass} />
@@ -144,7 +144,7 @@ export default function UserForm() {
           {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className={labelClass}>Rol</label>
             <select {...register('role')} className={inputClass}>
